@@ -43,5 +43,6 @@ public interface LuceneService {
 
     void deleteAll();
 
-    TableResultResponse page(Integer pageNumber, Integer pageSize, String keyword);
+	@SuppressWarnings("rawtypes")
+	TableResultResponse page(Integer pageNumber, Integer pageSize, String keyword);
 }

@@ -48,50 +48,51 @@ import static com.github.wxiaoqi.gate.ratelimit.config.properties.RateLimitPrope
 @ConditionalOnProperty(prefix = PREFIX, name = "enabled", havingValue = "true")
 public class RateLimitAutoConfiguration {
 
-    @Bean
-    public RateLimitFilter rateLimiterFilter(final RateLimiter rateLimiter,
-                                             final RateLimitProperties rateLimitProperties,
-                                             final RouteLocator routeLocator, final IUserPrincipal userPrincipal) {
-        return new RateLimitFilter(rateLimiter, rateLimitProperties, routeLocator,userPrincipal);
-    }
+	@Bean
+	public RateLimitFilter rateLimiterFilter(final RateLimiter rateLimiter,
+			final RateLimitProperties rateLimitProperties, final RouteLocator routeLocator,
+			final IUserPrincipal userPrincipal) {
+		return new RateLimitFilter(rateLimiter, rateLimitProperties, routeLocator, userPrincipal);
+	}
 
-    @ConditionalOnClass(RedisTemplate.class)
-    @ConditionalOnMissingBean(RateLimiter.class)
-    @ConditionalOnProperty(prefix = PREFIX, name = "repository", havingValue = "REDIS")
-    public static class RedisConfiguration {
+	@ConditionalOnClass(RedisTemplate.class)
+	@ConditionalOnMissingBean(RateLimiter.class)
+	@ConditionalOnProperty(prefix = PREFIX, name = "repository", havingValue = "REDIS")
+	public static class RedisConfiguration {
 
-        @Bean("rateLimiterRedisTemplate")
-        public StringRedisTemplate redisTemplate(final RedisConnectionFactory connectionFactory) {
-            return new StringRedisTemplate(connectionFactory);
-        }
+		@Bean("rateLimiterRedisTemplate")
+		public StringRedisTemplate redisTemplate(final RedisConnectionFactory connectionFactory) {
+			return new StringRedisTemplate(connectionFactory);
+		}
 
-        @Bean
-        public RateLimiter redisRateLimiter(@Qualifier("rateLimiterRedisTemplate") final RedisTemplate redisTemplate) {
-            return new RedisRateLimiter(redisTemplate);
-        }
-    }
+		@Bean
+		public RateLimiter redisRateLimiter(
+				@Qualifier("rateLimiterRedisTemplate") final RedisTemplate<?, ?> redisTemplate) {
+			return new RedisRateLimiter(redisTemplate);
+		}
+	}
 
-    @EntityScan
-    @EnableJpaRepositories
-    @ConditionalOnMissingBean(RateLimiter.class)
-    @ConditionalOnProperty(prefix = PREFIX, name = "repository", havingValue = "JPA")
-    public static class SpringDataConfiguration {
+	@EntityScan
+	@EnableJpaRepositories
+	@ConditionalOnMissingBean(RateLimiter.class)
+	@ConditionalOnProperty(prefix = PREFIX, name = "repository", havingValue = "JPA")
+	public static class SpringDataConfiguration {
 
-        @Bean
-        public RateLimiter springDataRateLimiter(IRateLimiterRepository rateLimiterRepository) {
-            return new SpringDataRateLimiter(rateLimiterRepository);
-        }
+		@Bean
+		public RateLimiter springDataRateLimiter(IRateLimiterRepository rateLimiterRepository) {
+			return new SpringDataRateLimiter(rateLimiterRepository);
+		}
 
-    }
+	}
 
-    @ConditionalOnMissingBean(RateLimiter.class)
-    @ConditionalOnProperty(prefix = PREFIX, name = "repository", havingValue = "IN_MEMORY", matchIfMissing = true)
-    public static class InMemoryConfiguration {
+	@ConditionalOnMissingBean(RateLimiter.class)
+	@ConditionalOnProperty(prefix = PREFIX, name = "repository", havingValue = "IN_MEMORY", matchIfMissing = true)
+	public static class InMemoryConfiguration {
 
-        @Bean
-        public RateLimiter inMemoryRateLimiter() {
-            return new InMemoryRateLimiter();
-        }
-    }
+		@Bean
+		public RateLimiter inMemoryRateLimiter() {
+			return new InMemoryRateLimiter();
+		}
+	}
 
 }

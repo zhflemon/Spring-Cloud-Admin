@@ -25,7 +25,6 @@
 
 package com.github.wxiaoqi.security.api.vo.search;
 
-
 import java.io.Serializable;
 
 /**
@@ -33,8 +32,13 @@ import java.io.Serializable;
  *
  * @author ace
  **/
-public class IndexObject implements Comparable<IndexObject>,Serializable{
-	
+public class IndexObject implements Comparable<IndexObject>, Serializable {
+
+	/**
+	* @Fields serialVersionUID : (用一句话描述这个变量表示什么)
+	*/
+	private static final long serialVersionUID = 4433389607848839506L;
+
 	private Long id;
 
 	private String title;
@@ -63,9 +67,8 @@ public class IndexObject implements Comparable<IndexObject>,Serializable{
 
 	private String url;
 
-	/*相似度*/
+	/* 相似度 */
 	private float score;
-
 
 	public String getKeywords() {
 		return keywords;
@@ -82,8 +85,6 @@ public class IndexObject implements Comparable<IndexObject>,Serializable{
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
-
 
 	public String getTitle() {
 		return title;
@@ -105,12 +106,10 @@ public class IndexObject implements Comparable<IndexObject>,Serializable{
 		return score;
 	}
 
-	public  void setScore(float score) {
+	public void setScore(float score) {
 		this.score = score;
 	}
 
-
-	
 	public IndexObject() {
 		super();
 	}
@@ -120,18 +119,18 @@ public class IndexObject implements Comparable<IndexObject>,Serializable{
 		this.id = _id;
 		this.keywords = _keywords;
 		this.score = _score;
-		this.descripton=_descripton;
-		this.postDate=_postDate;
+		this.descripton = _descripton;
+		this.postDate = _postDate;
 	}
+
 	@Override
 	public int compareTo(IndexObject o) {
-		if(this.score < o.getScore()){
+		if (this.score < o.getScore()) {
 			return 1;
-		}else if(this.score > o.getScore()){
+		} else if (this.score > o.getScore()) {
 			return -1;
 		}
 		return 0;
 	}
-	
-	
+
 }

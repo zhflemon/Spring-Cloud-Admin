@@ -8,61 +8,63 @@ import java.io.Serializable;
  * @author wanghaobin
  * @create 2017-06-22 15:19
  */
-public class PermissionInfo implements Serializable{
-    private String code;
-    private String type;
-    private String uri;
-    private String method;
-    private String name;
-    private String menu;
+public class PermissionInfo implements Serializable {
+	/**
+	* @Fields serialVersionUID : (用一句话描述这个变量表示什么)
+	*/
+	private static final long serialVersionUID = -2700844952128357838L;
+	private String code;
+	private String type;
+	private String uri;
+	private String method;
+	private String name;
+	private String menu;
 
-    public String getMenu() {
-        return menu;
-    }
+	public String getMenu() {
+		return menu;
+	}
 
-    public void setMenu(String menu) {
-        this.menu = menu;
-    }
+	public void setMenu(String menu) {
+		this.menu = menu;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
+	public String getMethod() {
+		return method;
+	}
 
+	public void setMethod(String method) {
+		this.method = method;
+	}
 
-    public String getMethod() {
-        return method;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setMethod(String method) {
-        this.method = method;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public String getCode() {
-        return code;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getUri() {
+		return uri;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
 }

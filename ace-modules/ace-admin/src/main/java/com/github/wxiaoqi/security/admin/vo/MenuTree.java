@@ -6,110 +6,120 @@ import com.github.wxiaoqi.security.common.vo.TreeNode;
  * Created by Ace on 2017/6/12.
  */
 public class MenuTree extends TreeNode {
-    String icon;
-    String title;
-    String href;
-    boolean spread = false;
-    String path;
-    String component;
-    String authority;
-    String redirect;
-    String code;
+	String icon;
+	String title;
+	String href;
+	boolean spread = false;
+	String path;
+	String component;
+	String authority;
+	String redirect;
+	String code;
 
-    public String getCode() {
-        return code;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public String getPath() {
-        return path;
-    }
+	public String getPath() {
+		return path;
+	}
 
-    public void setPath(String path) {
-        this.path = path;
-    }
+	public void setPath(String path) {
+		this.path = path;
+	}
 
-    public String getComponent() {
-        return component;
-    }
+	public String getComponent() {
+		return component;
+	}
 
-    public void setComponent(String component) {
-        this.component = component;
-    }
+	public void setComponent(String component) {
+		this.component = component;
+	}
 
-    public String getAuthority() {
-        return authority;
-    }
+	public String getAuthority() {
+		return authority;
+	}
 
-    public void setAuthority(String authority) {
-        this.authority = authority;
-    }
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
 
-    public String getRedirect() {
-        return redirect;
-    }
+	public String getRedirect() {
+		return redirect;
+	}
 
-    public void setRedirect(String redirect) {
-        this.redirect = redirect;
-    }
+	public void setRedirect(String redirect) {
+		this.redirect = redirect;
+	}
 
-    public String getLabel() {
-        return label;
-    }
+	public String getLabel() {
+		return label;
+	}
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
-    String label;
+	String label;
 
-    public MenuTree() {
-    }
+	public MenuTree() {
+	}
 
-    public MenuTree(int id, String name, int parentId) {
-        this.id = id;
-        this.parentId = parentId;
-        this.title = name;
-        this.label = name;
-    }
-    public MenuTree(int id, String name, MenuTree parent) {
-        this.id = id;
-        this.parentId = parent.getId();
-        this.title = name;
-        this.label = name;
-    }
-    public String getIcon() {
-        return icon;
-    }
+	public MenuTree(int id, String name, int parentId) {
+		this.id = id;
+		this.parentId = parentId;
+		this.title = name;
+		this.label = name;
+	}
 
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
+	public MenuTree(int id, String name, MenuTree parent) {
+		this.id = id;
+		this.parentId = parent.getId();
+		this.title = name;
+		this.label = name;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public String getIcon() {
+		return icon;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 
-    public String getHref() {
-        return href;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setHref(String href) {
-        this.href = href;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public boolean isSpread() {
-        return spread;
-    }
+	public String getHref() {
+		return href;
+	}
 
-    public void setSpread(boolean spread) {
-        this.spread = spread;
-    }
+	public void setHref(String href) {
+		this.href = href;
+	}
+
+	public boolean isSpread() {
+		return spread;
+	}
+
+	public void setSpread(boolean spread) {
+		this.spread = spread;
+	}
+
+	@Override
+	public String toString() {
+		return "MenuTree [icon=" + icon + ", title=" + title + ", href=" + href + ", spread=" + spread + ", path="
+				+ path + ", component=" + component + ", authority=" + authority + ", redirect=" + redirect + ", code="
+				+ code + ", label=" + label + "]";
+	}
+
 }

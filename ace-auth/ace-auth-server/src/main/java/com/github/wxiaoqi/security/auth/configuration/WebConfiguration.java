@@ -17,25 +17,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration("admimWebConfig")
 @Primary
 public class WebConfiguration implements WebMvcConfigurer {
-    @Bean
-    GlobalExceptionHandler getGlobalExceptionHandler() {
-        return new GlobalExceptionHandler();
-    }
+	@Bean
+	GlobalExceptionHandler getGlobalExceptionHandler() {
+		return new GlobalExceptionHandler();
+	}
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(getServiceAuthRestInterceptor()).addPathPatterns("/service/**");
-        registry.addInterceptor(getUserAuthRestInterceptor()).addPathPatterns("/service/**");
-    }
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(getServiceAuthRestInterceptor()).addPathPatterns("/service/**");
+		registry.addInterceptor(getUserAuthRestInterceptor()).addPathPatterns("/service/**");
+	}
 
-    @Bean
-    ServiceAuthRestInterceptor getServiceAuthRestInterceptor() {
-        return new ServiceAuthRestInterceptor();
-    }
+	@Bean
+	ServiceAuthRestInterceptor getServiceAuthRestInterceptor() {
+		return new ServiceAuthRestInterceptor();
+	}
 
-    @Bean
-    UserAuthRestInterceptor getUserAuthRestInterceptor() {
-        return new UserAuthRestInterceptor();
-    }
+	@Bean
+	UserAuthRestInterceptor getUserAuthRestInterceptor() {
+		return new UserAuthRestInterceptor();
+	}
 
 }

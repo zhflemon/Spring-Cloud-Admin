@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class AuthConfiguration {
-    @Bean
-    public GlobalExceptionHandler getGlobalExceptionHandler(){
-        return new GlobalExceptionHandler();
-    }
+	@Bean
+	public GlobalExceptionHandler getGlobalExceptionHandler() {
+		return new GlobalExceptionHandler();
+	}
 }

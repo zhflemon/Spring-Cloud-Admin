@@ -5,66 +5,70 @@ import java.io.Serializable;
 /**
  * Created by ace on 2017/9/10.
  */
-public class JWTInfo implements Serializable,IJWTInfo {
-    private String username;
-    private String userId;
-    private String name;
+public class JWTInfo implements Serializable, IJWTInfo {
+	/**
+	* @Fields serialVersionUID : (用一句话描述这个变量表示什么)
+	*/
+	private static final long serialVersionUID = -1433617972421094362L;
+	private String username;
+	private String userId;
+	private String name;
 
-    public JWTInfo(String username, String userId, String name) {
-        this.username = username;
-        this.userId = userId;
-        this.name = name;
-    }
+	public JWTInfo(String username, String userId, String name) {
+		this.username = username;
+		this.userId = userId;
+		this.name = name;
+	}
 
-    @Override
-    public String getUniqueName() {
-        return username;
-    }
+	@Override
+	public String getUniqueName() {
+		return username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    @Override
-    public String getId() {
-        return userId;
-    }
+	@Override
+	public String getId() {
+		return userId;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    @Override
-    public String getName() {
-        return name;
-    }
+	@Override
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-        JWTInfo jwtInfo = (JWTInfo) o;
+		JWTInfo jwtInfo = (JWTInfo) o;
 
-        if (username != null ? !username.equals(jwtInfo.username) : jwtInfo.username != null) {
-            return false;
-        }
-        return userId != null ? userId.equals(jwtInfo.userId) : jwtInfo.userId == null;
+		if (username != null ? !username.equals(jwtInfo.username) : jwtInfo.username != null) {
+			return false;
+		}
+		return userId != null ? userId.equals(jwtInfo.userId) : jwtInfo.userId == null;
 
-    }
+	}
 
-    @Override
-    public int hashCode() {
-        int result = username != null ? username.hashCode() : 0;
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		int result = username != null ? username.hashCode() : 0;
+		result = 31 * result + (userId != null ? userId.hashCode() : 0);
+		return result;
+	}
 }

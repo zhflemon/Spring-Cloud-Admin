@@ -29,103 +29,100 @@ import java.util.List;
 @Controller
 @RequestMapping("menu")
 public class MenuController extends BaseController<MenuBiz, Menu> {
-    @Autowired
-    private UserBiz userBiz;
+	@Autowired
+	private UserBiz userBiz;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Menu> list(String title) {
-        Example example = new Example(Menu.class);
-        if (StringUtils.isNotBlank(title)) {
-            example.createCriteria().andLike("title", "%" + title + "%");
-        }
-        return baseBiz.selectByExample(example);
-    }
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Menu> list(String title) {
+		Example example = new Example(Menu.class);
+		if (StringUtils.isNotBlank(title)) {
+			example.createCriteria().andLike("title", "%" + title + "%");
+		}
+		return baseBiz.selectByExample(example);
+	}
 
-    @RequestMapping(value = "/tree", method = RequestMethod.GET)
-    @ResponseBody
-    public List<MenuTree> getTree(String title) {
-        Example example = new Example(Menu.class);
-        if (StringUtils.isNotBlank(title)) {
-            example.createCriteria().andLike("title", "%" + title + "%");
-        }
-        return getMenuTree(baseBiz.selectByExample(example), AdminCommonConstant.ROOT);
-    }
+	@RequestMapping(value = "/tree", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MenuTree> getTree(String title) {
+		Example example = new Example(Menu.class);
+		if (StringUtils.isNotBlank(title)) {
+			example.createCriteria().andLike("title", "%" + title + "%");
+		}
+		return getMenuTree(baseBiz.selectByExample(example), AdminCommonConstant.ROOT);
+	}
 
+	@RequestMapping(value = "/system", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Menu> getSystem() {
+		Menu menu = new Menu();
+		menu.setParentId(AdminCommonConstant.ROOT);
+		return baseBiz.selectList(menu);
+	}
 
+	@RequestMapping(value = "/menuTree", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MenuTree> listMenu(Integer parentId) {
+		try {
+			if (parentId == null) {
+				parentId = this.getSystem().get(0).getId();
+			}
+		} catch (Exception e) {
+			return new ArrayList<MenuTree>();
+		}
+		// List<MenuTree> trees = new ArrayList<MenuTree>();
+		// MenuTree node = null;
+		Example example = new Example(Menu.class);
+		Menu parent = baseBiz.selectById(parentId);
+		example.createCriteria().andLike("path", parent.getPath() + "%").andNotEqualTo("id", parent.getId());
+		return getMenuTree(baseBiz.selectByExample(example), parent.getId());
+	}
 
-    @RequestMapping(value = "/system", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Menu> getSystem() {
-        Menu menu = new Menu();
-        menu.setParentId(AdminCommonConstant.ROOT);
-        return baseBiz.selectList(menu);
-    }
+	@RequestMapping(value = "/authorityTree", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AuthorityMenuTree> listAuthorityMenu() {
+		List<AuthorityMenuTree> trees = new ArrayList<AuthorityMenuTree>();
+		AuthorityMenuTree node = null;
+		for (Menu menu : baseBiz.selectListAll()) {
+			node = new AuthorityMenuTree();
+			node.setText(menu.getTitle());
+			BeanUtils.copyProperties(menu, node);
+			trees.add(node);
+		}
+		return TreeUtil.bulid(trees, AdminCommonConstant.ROOT);
+	}
 
-    @RequestMapping(value = "/menuTree", method = RequestMethod.GET)
-    @ResponseBody
-    public List<MenuTree> listMenu(Integer parentId) {
-        try {
-            if (parentId == null) {
-                parentId = this.getSystem().get(0).getId();
-            }
-        } catch (Exception e) {
-            return new ArrayList<MenuTree>();
-        }
-        List<MenuTree> trees = new ArrayList<MenuTree>();
-        MenuTree node = null;
-        Example example = new Example(Menu.class);
-        Menu parent = baseBiz.selectById(parentId);
-        example.createCriteria().andLike("path", parent.getPath() + "%").andNotEqualTo("id",parent.getId());
-        return getMenuTree(baseBiz.selectByExample(example), parent.getId());
-    }
+	@RequestMapping(value = "/user/authorityTree", method = RequestMethod.GET)
+	@ResponseBody
+	public List<MenuTree> listUserAuthorityMenu(Integer parentId) {
+		int userId = userBiz.getUserByUsername(getCurrentUserName()).getId();
+		try {
+			if (parentId == null) {
+				parentId = this.getSystem().get(0).getId();
+			}
+		} catch (Exception e) {
+			return new ArrayList<MenuTree>();
+		}
+		return getMenuTree(baseBiz.getUserAuthorityMenuByUserId(userId), parentId);
+	}
 
-    @RequestMapping(value = "/authorityTree", method = RequestMethod.GET)
-    @ResponseBody
-    public List<AuthorityMenuTree> listAuthorityMenu() {
-        List<AuthorityMenuTree> trees = new ArrayList<AuthorityMenuTree>();
-        AuthorityMenuTree node = null;
-        for (Menu menu : baseBiz.selectListAll()) {
-            node = new AuthorityMenuTree();
-            node.setText(menu.getTitle());
-            BeanUtils.copyProperties(menu, node);
-            trees.add(node);
-        }
-        return TreeUtil.bulid(trees, AdminCommonConstant.ROOT);
-    }
+	@RequestMapping(value = "/user/system", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Menu> listUserAuthoritySystem() {
+		int userId = userBiz.getUserByUsername(getCurrentUserName()).getId();
+		return baseBiz.getUserAuthoritySystemByUserId(userId);
+	}
 
-    @RequestMapping(value = "/user/authorityTree", method = RequestMethod.GET)
-    @ResponseBody
-    public List<MenuTree> listUserAuthorityMenu(Integer parentId){
-        int userId = userBiz.getUserByUsername(getCurrentUserName()).getId();
-        try {
-            if (parentId == null) {
-                parentId = this.getSystem().get(0).getId();
-            }
-        } catch (Exception e) {
-            return new ArrayList<MenuTree>();
-        }
-        return getMenuTree(baseBiz.getUserAuthorityMenuByUserId(userId),parentId);
-    }
-
-    @RequestMapping(value = "/user/system", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Menu> listUserAuthoritySystem() {
-        int userId = userBiz.getUserByUsername(getCurrentUserName()).getId();
-        return baseBiz.getUserAuthoritySystemByUserId(userId);
-    }
-
-    private List<MenuTree> getMenuTree(List<Menu> menus,int root) {
-        List<MenuTree> trees = new ArrayList<MenuTree>();
-        MenuTree node = null;
-        for (Menu menu : menus) {
-            node = new MenuTree();
-            BeanUtils.copyProperties(menu, node);
-            node.setLabel(menu.getTitle());
-            trees.add(node);
-        }
-        return TreeUtil.bulid(trees,root) ;
-    }
-
+	private List<MenuTree> getMenuTree(List<Menu> menus, int root) {
+		List<MenuTree> trees = new ArrayList<MenuTree>();
+		MenuTree node = null;
+		for (Menu menu : menus) {
+			node = new MenuTree();
+			BeanUtils.copyProperties(menu, node);
+			node.setLabel(menu.getTitle());
+			trees.add(node);
+		}
+		return TreeUtil.bulid(trees, root);
+	}
 
 }

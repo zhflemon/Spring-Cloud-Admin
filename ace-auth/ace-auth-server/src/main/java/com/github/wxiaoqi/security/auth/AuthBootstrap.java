@@ -1,6 +1,5 @@
 package com.github.wxiaoqi.security.auth;
 
-
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,7 +18,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @RemoteApplicationEventScan(basePackages = "com.github.wxiaoqi.security.auth.common.event")
 @EnableAutoConfiguration
 public class AuthBootstrap {
-    public static void main(String[] args) {
-        SpringApplication.run(AuthBootstrap.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(AuthBootstrap.class, args);
+	}
 }

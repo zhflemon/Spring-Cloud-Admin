@@ -9,88 +9,93 @@ import java.util.Date;
  * @author wanghaobin
  * @create 2017-07-01 11:18
  */
-public class LogInfo implements Serializable{
-    private String menu;
+public class LogInfo implements Serializable {
+	/**
+	* @Fields serialVersionUID : (用一句话描述这个变量表示什么)
+	*/
+	private static final long serialVersionUID = -1036257731862526849L;
 
-    private String opt;
+	private String menu;
 
-    private String uri;
+	private String opt;
 
+	private String uri;
 
-    private Date crtTime;
+	private Date crtTime;
 
-    private String crtUser;
+	private String crtUser;
 
-    private String crtName;
+	private String crtName;
 
-    private String crtHost;
+	private String crtHost;
 
-    public LogInfo(String menu, String option, String uri,  Date crtTime, String crtUser, String crtName, String crtHost) {
-        this.menu = menu;
-        this.opt = option;
-        this.uri = uri;
-        this.crtTime = crtTime;
-        this.crtUser = crtUser;
-        this.crtName = crtName;
-        this.crtHost = crtHost;
-    }
+	public LogInfo(String menu, String option, String uri, Date crtTime, String crtUser, String crtName,
+			String crtHost) {
+		this.menu = menu;
+		this.opt = option;
+		this.uri = uri;
+		this.crtTime = crtTime;
+		this.crtUser = crtUser;
+		this.crtName = crtName;
+		this.crtHost = crtHost;
+	}
 
-    public LogInfo() {
-    }
+	public LogInfo() {
+	}
 
-    public String getMenu() {
-        return menu;
-    }
+	public String getMenu() {
+		return menu;
+	}
 
-    public void setMenu(String menu) {
-        this.menu = menu;
-    }
+	public void setMenu(String menu) {
+		this.menu = menu;
+	}
 
-    public String getOpt() {
-        return opt;
-    }
+	public String getOpt() {
+		return opt;
+	}
 
-    public void setOpt(String option) {
-        this.opt = option;
-    }
+	public void setOpt(String option) {
+		this.opt = option;
+	}
 
-    public String getUri() {
-        return uri;
-    }
+	public String getUri() {
+		return uri;
+	}
 
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
 
-    public Date getCrtTime() {
-        return crtTime;
-    }
+	public Date getCrtTime() {
+		return crtTime;
+	}
 
-    public void setCrtTime(Date crtTime) {
-        this.crtTime = crtTime;
-    }
+	public void setCrtTime(Date crtTime) {
+		this.crtTime = crtTime;
+	}
 
-    public String getCrtUser() {
-        return crtUser;
-    }
+	public String getCrtUser() {
+		return crtUser;
+	}
 
-    public void setCrtUser(String crtUser) {
-        this.crtUser = crtUser;
-    }
+	public void setCrtUser(String crtUser) {
+		this.crtUser = crtUser;
+	}
 
-    public String getCrtName() {
-        return crtName;
-    }
+	public String getCrtName() {
+		return crtName;
+	}
 
-    public void setCrtName(String crtName) {
-        this.crtName = crtName;
-    }
+	public void setCrtName(String crtName) {
+		this.crtName = crtName;
+	}
 
-    public String getCrtHost() {
-        return crtHost;
-    }
+	public String getCrtHost() {
+		return crtHost;
+	}
 
-    public void setCrtHost(String crtHost) {
-        this.crtHost = crtHost;
-    }
+	public void setCrtHost(String crtHost) {
+		this.crtHost = crtHost;
+	}
 }

@@ -10,5 +10,6 @@ import org.springframework.stereotype.Service;
  * @create 2017/12/30.
  */
 @Service
-public class ClientServiceBiz extends BaseBiz<ClientServiceMapper,ClientService> {
+public class ClientServiceBiz extends BaseBiz<ClientServiceMapper, ClientService> {
+
 }

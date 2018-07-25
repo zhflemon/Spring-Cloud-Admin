@@ -19,26 +19,27 @@ import java.util.List;
  * @date 2017-12-26 19:43:46
  */
 @Service
-public class ClientBiz extends BaseBiz<ClientMapper,Client> {
-    @Autowired
-    private ClientServiceMapper clientServiceMapper;
-    @Autowired
-    private ClientServiceBiz clientServiceBiz;
+public class ClientBiz extends BaseBiz<ClientMapper, Client> {
+	@Autowired
+	private ClientServiceMapper clientServiceMapper;
 
-    public List<Client> getClientServices(int id) {
-        return mapper.selectAuthorityServiceInfo(id);
-    }
+	@Autowired
+	private ClientServiceBiz clientServiceBiz;
 
-    public void modifyClientServices(int id, String clients) {
-        clientServiceMapper.deleteByServiceId(id);
-        if (!StringUtils.isEmpty(clients)) {
-            String[] mem = clients.split(",");
-            for (String m : mem) {
-                ClientService clientService = new ClientService();
-                clientService.setServiceId(m);
-                clientService.setClientId(id+"");
-                clientServiceBiz.insertSelective(clientService);
-            }
-        }
-    }
+	public List<Client> getClientServices(int id) {
+		return mapper.selectAuthorityServiceInfo(id);
+	}
+
+	public void modifyClientServices(int id, String clients) {
+		clientServiceMapper.deleteByServiceId(id);
+		if (!StringUtils.isEmpty(clients)) {
+			String[] mem = clients.split(",");
+			for (String m : mem) {
+				ClientService clientService = new ClientService();
+				clientService.setServiceId(m);
+				clientService.setClientId(id + "");
+				clientServiceBiz.insertSelective(clientService);
+			}
+		}
+	}
 }
